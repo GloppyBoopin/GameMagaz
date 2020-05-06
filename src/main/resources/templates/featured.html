@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<title>Task 3</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<div class="nav-wrapper">
+			<nav>
+				<a style="padding: 0;" href="/">
+					<div class="logo" style="background: url('/images/blank1.png') no-repeat;"></div>
+				</a>
+				<ul class="nav-links">
+					<li><a class="active" href="/">Home</a></li>
+				</ul>
+				<ul class="login-links">
+					<li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+					<div sec:authorize="isAnonymous()">
+						<li><a href="/login-reg">Login</a></li>
+						<li><a href="/login-reg">Register</a></li>
+					</div>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<div class="slider" style="height: 600px; color: #333">
+			<div class="game-image">img</div>
+			<p style="float: left; margin: 40px 40px; ">Blah blah blah about a game</p>
+		</div>
+	</main>
+</body>
+</html>

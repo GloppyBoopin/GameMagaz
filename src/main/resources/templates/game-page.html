@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Task 3</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/game-page.css">
+</head>
+<body>
+    <header>
+        <div class="nav-wrapper">
+            <nav>
+                <a style="padding: 0;" href="/">
+                    <div class="logo" style="background: url('/images/blank1.png') no-repeat;"></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a class="active" href="/">Home</a></li>
+                </ul>
+                <ul class="login-links">
+                    <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/panel">Admin panel</a></li>
+                    <div sec:authorize="isAnonymous()">
+                        <li><a href="/login-reg">Login</a></li>
+                        <li><a href="/login-reg">Register</a></li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="game-background"></div>
+
+    <main>
+        <div class="game-info">
+            <div class="game-name" th:text="${game.name}"></div>
+            <div class="game-left">
+                <img th:src="@{'/images/' + ${game.imagePath}}" class="game-image">
+                <div class="game-developers-categories">
+                    <ul>
+                        <li>
+                            <div class="game-developers-categories-key">Genres</div>
+                            <div class="game-developers-categories-value" th:each="c : ${game.categories}">
+                                <div>
+                                    <a th:href="@{'/search/' + ${c.name}}" class="category-search-link" th:text="${c.name}"></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="game-developers-categories-key">Developer</div>
+                            <div class="game-developers-categories-value" th:text="${game.developer}"></div>
+                        </li>
+                        <li>
+                            <div class="game-developers-categories-key">Publisher</div>
+                            <div class="game-developers-categories-value" th:text="${game.publisher}"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="game-right">
+                <div th:if="${game.discount != 0}" class="game-discount">
+                    <div th:text="${game.formatDiscount()}"></div>
+                </div>
+                <div class="game-price" th:utext="${game.calculatePrice()} +  ' $'">
+                </div>
+                <button class="game-buy">Buy</button>
+                <div class="game-description" th:utext="${game.description}"></div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

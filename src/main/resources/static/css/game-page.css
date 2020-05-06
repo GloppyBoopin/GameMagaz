@@ -1,0 +1,152 @@
+.game-background {
+    background-image: linear-gradient(-45deg, #6c036f 0%, #046c6f 50%, #6c036f 100%);
+    background-size: 200%;
+    width: 100%;
+    height: 350px;
+    position: absolute;
+    z-index: 1;
+    animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+    0%{
+        background-position: 0 50%;
+    }
+    25%{
+        background-position: 50% 100%;
+    }
+    50%{
+        background-position: 100% 150%;
+    }
+    75%{
+        background-position: 50% 100%;
+    }
+    100%{
+        background-position: 0 50%;
+    }
+}
+
+.game-name {
+    margin-bottom: 80px;
+    padding: 20px 0;
+    color: white;
+    width: 100%;
+    font-size: 48px;
+    font-weight: 700;
+    text-align: left;
+    z-index: 9;
+}
+
+.game-info {
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    margin-top: 40px;
+    z-index: 9;
+}
+
+.game-left {
+    width: 500px;
+    float: left;
+}
+
+.game-image {
+    width: 100%;
+    height: 250px;
+}
+
+.game-developers-categories {
+    margin-top: 10px;
+    padding: 10px 0 0 25px;
+    background: #333;
+    float: left;
+    width: 475px;
+}
+
+.game-developers-categories ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.game-developers-categories ul li {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.game-developers-categories-key {
+    color: #059c9f;
+    width: 30%;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.game-developers-categories-value {
+    color: #ac07af;
+    width: 65%;
+    flex: 1;
+    -webkit-box-flex: 1;
+    text-align: left;
+}
+
+.game-developers-categories-value a{
+    color: #f907fc;
+    text-decoration: underline;
+}
+
+.game-developers-categories-value a:hover {
+    color: #6c036f;
+}
+
+.game-right {
+    width: 700px;
+    float: right;
+}
+
+.game-discount {
+    float: left;
+    text-align: center;
+    padding: 20px 18px 20px 18px;
+    width: 120px;
+    font-size: 24px;
+    color: #f907fc;
+    border: 2px solid #ac07af;
+}
+
+.game-price {
+    padding: 14px;
+    font-size: 36px;
+    float: left;
+    color: #05d6d9;
+    font-weight: 600;
+}
+
+.game-buy {
+    padding: 20px;
+    float: right;
+    font-size: 24px;
+    width: 200px;
+    text-align: center;
+    background: transparent;
+    color: #f907fc;
+    font-weight: 400;
+    border: 2px solid #ac07af;
+    cursor: pointer;
+    transition: background 1s ease;
+    -webkit-transition: background 1s ease;
+    -moz-transition: background 1s ease;
+    -o-transition: background 1s ease;
+}
+
+.game-buy:hover {
+    background: #ac07af;
+}
+
+.game-description {
+    background: #333;
+    margin-top: 150px;
+    min-height: 400px;
+    padding: 30px 20px;
+    color: #05acaf;
+    line-height: 30px;
+}

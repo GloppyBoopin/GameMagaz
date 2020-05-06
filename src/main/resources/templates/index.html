@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<title>Task 3</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<div class="nav-wrapper">
+			<nav>
+				<a style="padding: 0;" href="/">
+					<div class="logo" style="background: url('/images/blank1.png') no-repeat;"></div>
+				</a>
+				<ul class="nav-links">
+					<li><a class="active" href="/">Home</a></li>
+				</ul>
+				<ul class="login-links">
+					<li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/panel">Admin panel</a></li>
+					<div sec:authorize="isAnonymous()">
+						<li><a href="/login-reg">Login</a></li>
+						<li><a href="/login-reg">Register</a></li>
+					</div>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main>
+		<div class="slider"><h2 style="color: #333;">/SLIDER/</h2></div>
+		<div class="featured-games">
+			<h1 style="margin: 0; padding: 0; color: #f907fc; text-align: center;">
+				Featured
+			</h1>
+			<div id="featured1" class="featured">
+				<div class="featured-child bg1">
+					<a href="/featured">
+						Nigger
+					</a>
+				</div>
+			</div>
+			<div id="featured2" class="featured">
+                <div class="featured-child bg2">
+                    <a href="/featured">
+                        Nigger
+                    </a>
+                </div>
+            </div>
+			<div id="featured3" class="featured">
+                <div class="featured-child bg3">
+                    <a href="/featured">
+                        Nigger
+                    </a>
+                </div>
+            </div>
+			<div id="featured4" class="featured">
+                <div class="featured-child bg4">
+                    <a href="/featured">
+                        Nigger
+                    </a>
+                </div>
+            </div>
+		</div>
+		<div class="games-catalogue">
+            <h1 style="color: #f907fc; text-align: center">Catalogue</h1>
+            <div class="game-preview-wrapper" style="float: none; background: #333;">
+                <div th:each="game : ${games}">
+                    <a class="game-link" th:href="@{'/game-page/' + ${game.ID}}">
+                        <div class="game-preview">
+                            <img alt="Game Image" th:src="@{'/images/' + ${game.imagePath}}" class="game-preview-image">
+                            <div class="game-preview-name-date">
+                                <div class="game-preview-name" th:text="${game.name}"></div>
+                                <div class="game-preview-categories">
+                                    <span class="game-preview-category" th:text="${game.getCategoriesNames()}"></span>
+                                </div>
+                                <div class="game-preview-date" th:text="'Added at ' + ${game.formatAddedDate()}"></div>
+                            </div>
+                            <div class="game-preview-price" th:text="${game.price} + '$'"></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="page-buttons" style="bottom: 60px;">
+                    <a class="page-button" th:each = "i : ${#numbers.sequence(1, tabSize)}" th:text = "${i}" th:href = "@{'/?page=' + ${i}}"></a>
+                </div>
+            </div>
+		</div>
+	</main>
+	<footer>
+		<h1>Podval</h1>
+		Nothing here yet :)
+	</footer>
+</body>
+</html>

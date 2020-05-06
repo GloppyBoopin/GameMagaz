@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<title>Task 3</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/login-reg.css">
+</head>
+<body>
+
+		<div class="nav-wrapper">
+			<nav>
+				<a style="padding: 0;" href="/">
+					<div class="logo" style="background: url('/images/blank1.png') no-repeat;"></div>
+				</a>
+				<ul class="nav-links">
+					<li><a class="active" href="/">Home</a></li>
+				</ul>
+			</nav>
+		</div>
+	<main>
+		<div class="login-reg-wrapper">
+		<h4>Login</h4>
+			<form method="post" action="/signin">
+				<label>Email:</label>
+				<input type="email" name="user_email" required>
+				<label>Password:</label>
+				<input type="Password" name="user_password" required>
+				<button class="submit">Login</button>
+			</form>
+			<hr>
+			<h4 style="margin-top: 30px;">Registration</h4>
+			<form method="post" action="/user/reg">
+				<label>Email:</label>
+				<span th:utext = "${email_username_error}"></span>
+				<input type="email" name="regEmail" required>
+				<label>Username:</label>
+				<input type="text" name="regUsername" required>
+				<label>Full name:</label>
+				<input type="text" name="regFullName">
+				<label>Password:</label>
+				<span th:utext = "${password_error}"></span>
+				<input type="Password" name="regPassword" pattern=".{6,}" required title="6 characters minimum">
+				<label>Repeat password:</label>
+				<input type="Password" name="regRepeatPassword" required>
+				<button class="submit">Register</button>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

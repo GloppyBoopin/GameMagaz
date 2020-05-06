@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Task 3</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/panel.css">
+    <script type="text/javascript" src="/js/admin-panel.js"></script>
+    <script type="text/javascript" src="/js/is-file-uploaded.js"></script>
+</head>
+<body>
+<header>
+    <div class="nav-wrapper">
+        <nav>
+            <a style="padding: 0;" href="/">
+                <div class="logo" style="background: url('/images/blank1.png') no-repeat;"></div>
+            </a>
+            <ul class="nav-links">
+                <li><a class="active" href="/">Home</a></li>
+            </ul>
+            <div class="admin-icon">
+                <img src="/images/admin-icon.png" alt="adminIcon" class="icon">
+            </div>
+            <ul class="login-links">
+                <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="panel-wrapper">
+        <div class="sidebar">
+            <ul>
+                <li><button class="btn" onclick="openPage('add-game', this)">Add a game</button></li>
+                <li><button class="btn sidebar-active" id="default" onclick="openPage('games-list', this)">Games list</button></li></a>
+                <li><button class="btn" onclick="openPage('edit-featured', this)">Edit featured</button></li></a>
+                <li><button class="btn" onclick="openPage('user-list', this)">User List</button></li></a>
+                <li><button class="btn" onclick="openPage('admin-list', this)">Admin List</button></li></a>
+            </ul>
+        </div>
+
+        <div class="admin-action">
+            <div id="add-game" class="admin-action-content">
+                <form method="post" enctype="multipart/form-data" th:action="@{'/admin/addGame'}">
+                    <label for="file-upload" class="custom-file-upload">
+                        Upload Image
+                    </label>
+                    <input id="file-upload" type="file" name="image" onchange="showName()"/>
+                    <label id="file-name"><span th:utext = "${file_error}"></span></label>
+                    <br><br><br>
+                    <label>Game name:</label>
+                    <span th:utext = "${game_name_error}"></span>
+                    <input type="text" name="name" required>
+                    <label>Game price:</label>
+                    <input type="number" name="price" required step="0.01" min="0" value="0">
+                    <label>Discount:</label>
+                    <span th:utext = "${game_discount_error}"></span>
+                    <input type="number" step="0.01" min="0" name="discount" value="0">
+                    <label>Categories:</label>
+                    <input type="text" name="categories">
+                    <label>Publisher:</label>
+                    <input type="text" name="publisher">
+                    <label>Developer:</label>
+                    <input type="text" name="developer">
+                    <label>Description:</label>
+                    <textarea rows="5" name="description" required></textarea>
+                    <button type="submit" class="submit">Add</button>
+                </form>
+            </div>
+            <div id="games-list" class="admin-action-content" style="display: block">
+                <div class="game-preview-wrapper">
+                    <div th:each="game : ${games}">
+                        <a class="game-link" th:href="@{'/game-page/' + ${game.ID}}">
+                            <div class="game-preview">
+                                <img alt="Game Image" th:src="@{'/images/' + ${game.imagePath}}" class="game-preview-image">
+                                <div class="game-preview-name-date">
+                                    <div class="game-preview-name" th:text="${game.name}"></div>
+                                    <div class="game-preview-categories">
+                                        <span class="game-preview-category" th:text="${game.getCategoriesNames()}"></span>
+                                    </div>
+                                    <div class="game-preview-date" th:text="'Added at ' + ${game.formatAddedDate()}"></div>
+                                </div>
+                                <div class="game-preview-price" th:text="${game.price} + '$'"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="page-buttons">
+                        <a class="page-button" th:each = "i : ${#numbers.sequence(1, tabSize)}" th:text = "${i}" th:href = "@{'/admin/panel/?page=' + ${i}}"></a>
+                    </div>
+                </div>
+            </div>
+            <div id="edit-featured" class="admin-action-content">c</div>
+            <div id="user-list" class="admin-action-content">d</div>
+            <div id="admin-list" class="admin-action-content">e</div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
