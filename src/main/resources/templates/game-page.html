@@ -38,8 +38,8 @@
                     <ul>
                         <li>
                             <div class="game-developers-categories-key">Genres</div>
-                            <div class="game-developers-categories-value" th:each="c : ${game.categories}">
-                                <div>
+                            <div class="game-developers-categories-value">
+                                <div style="display: inline-block;" th:each="c : ${game.categories}">
                                     <a th:href="@{'/search/' + ${c.name}}" class="category-search-link" th:text="${c.name}"></a>
                                 </div>
                             </div>

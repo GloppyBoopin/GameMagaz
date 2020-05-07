@@ -100,16 +100,17 @@ public class AdminController {
 
             for (String c : cats){
                 if (categoryRepository.findByName(c).isPresent()) {
-                    resultCategories.add(categoryRepository.findByName(c).get());
+                    Category cat_db = categoryRepository.findByName(c).get();
+                    resultCategories.add(cat_db);
                 } else {
                     categoryRepository.save(new Category(c));
-                    resultCategories.add(categoryRepository.findByName(c).get());
+                    Category cat_db = categoryRepository.findByName(c).get();
+                    resultCategories.add(cat_db);
                 }
-                Game g = new Game(name, price, resultCategories, null, description, discount,
-                        new Date(Calendar.getInstance().getTime().getTime()), publisher, developer, file.getOriginalFilename());
-                if (gameRepository.findByName(name).isEmpty())
-                    gameRepository.save(g);
             }
+            Game g = new Game(name, price, resultCategories, null, description, discount,
+                    new Date(Calendar.getInstance().getTime().getTime()), publisher, developer, file.getOriginalFilename());
+            gameRepository.save(g);
         }
         return "redirect:/admin/panel";
     }
