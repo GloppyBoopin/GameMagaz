@@ -73,7 +73,7 @@
     display: none;
 }
 
-form {
+.add-from {
     width: 600px;
     margin: 0 auto;
     margin-top: 20px;
@@ -149,4 +149,61 @@ textarea {
 
 .submit:hover{
     background-color: #333;
+}
+
+.user-list-wrapper {
+    box-shadow: 0 0 6px 1px #111;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.user-list-item {
+    position: relative;
+    padding: 0;
+    margin-bottom: 5px;
+    border-bottom: 2px solid #282828;
+    font-size: 14px;
+    color: white;
+    width: 100%;
+    height: 50px;
+    background: #222;
+}
+
+.user-list-username {
+    display: inline-block;
+    float: left;
+    width: 20%;
+    height: 20px;
+    padding: 15px 15px;
+}
+
+.user-list-email {
+    display: inline-block;
+    float: left;
+    width: 20%;
+    height: 20px;
+    padding: 15px 15px;
+}
+
+.user-list-action {
+    display: inline-block;
+    float: left;
+    width: 25%;
+    color: #bf0000;
+    border: none;
+    border-left: 2px solid #282828;
+    border-top: 1px solid #282828;
+    background: #333333;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+}
+
+.user-list-action:hover {
+    background-color: #222;
 }

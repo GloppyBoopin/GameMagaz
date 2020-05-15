@@ -41,7 +41,7 @@
 
         <div class="admin-action">
             <div id="add-game" class="admin-action-content">
-                <form method="post" enctype="multipart/form-data" th:action="@{'/admin/addGame'}">
+                <form class="add-from" method="post" enctype="multipart/form-data" th:action="@{'/admin/addGame'}">
                     <label for="file-upload" class="custom-file-upload">
                         Upload Image
                     </label>
@@ -89,9 +89,59 @@
                     </div>
                 </div>
             </div>
-            <div id="edit-featured" class="admin-action-content">c</div>
-            <div id="user-list" class="admin-action-content">d</div>
-            <div id="admin-list" class="admin-action-content">e</div>
+            <div id="edit-featured" class="admin-action-content">
+                c
+            </div>
+            <div id="user-list" class="admin-action-content">
+                <div class="user-list-wrapper">
+                    <div th:each="user : ${users}">
+                        <div class="user-list-item">
+                            <div class="user-list-username" th:text="${user.username}"></div>
+                            <div class="user-list-email" th:text="${user.email}"></div>
+                            <div th:if="${user.active}">
+                                <form method="post" th:action="@{'/admin/ban'}">
+                                    <input type="hidden" th:value="${user.id}" name="userID">
+                                    <button class="user-list-action">Ban</button>
+                                </form>
+                            </div>
+                            <div th:unless="${user.active}">
+                                <form method="post" th:action="@{'/admin/unban'}">
+                                    <input type="hidden" th:value="${user.id}" name="userID">
+                                    <button class="user-list-action">Unban</button>
+                                </form>
+                            </div>
+                            <div>
+                                <form method="post" th:action="@{'/admin/makeAdmin'}">
+                                    <input type="hidden" th:value="${user.id}" name="userID">
+                                    <button class="user-list-action">Make admin</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-buttons">
+                        <a class="page-button" th:each = "i : ${#numbers.sequence(1, userTabSize)}" th:text = "${i}" th:href = "@{'/admin/panel/?userPage=' + ${i}}"></a>
+                    </div>
+                </div>
+            </div>
+            <div id="admin-list" class="admin-action-content">
+                <div class="user-list-wrapper">
+                    <div th:each="admin : ${admins}">
+                        <div class="user-list-item">
+                            <div class="user-list-username" th:text="${admin.username}"></div>
+                            <div class="user-list-email" th:text="${admin.email}"></div>
+                            <div>
+                                <form method="post" th:action="@{'/admin/unMakeAdmin'}">
+                                    <input type="hidden" th:value="${admin.id}" name="adminID">
+                                    <button class="user-list-action" style="float: right">Unmake admin</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-buttons">
+                        <a class="page-button" th:each = "i : ${#numbers.sequence(1, userTabSize)}" th:text = "${i}" th:href = "@{'/admin/panel/?adminPage=' + ${i}}"></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

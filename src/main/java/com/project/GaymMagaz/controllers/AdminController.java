@@ -2,6 +2,7 @@ package com.project.GaymMagaz.controllers;
 
 import com.project.GaymMagaz.entities.Category;
 import com.project.GaymMagaz.entities.Game;
+import com.project.GaymMagaz.entities.Role;
 import com.project.GaymMagaz.entities.Users;
 import com.project.GaymMagaz.repositories.CategoryRepository;
 import com.project.GaymMagaz.repositories.GameRepository;
@@ -9,6 +10,7 @@ import com.project.GaymMagaz.repositories.UserRepository;
 import com.project.GaymMagaz.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -22,10 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -43,20 +42,37 @@ public class AdminController {
 
 
     @GetMapping(value = "/panel")
-    public String panel(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
+    public String panel(Model model, @RequestParam(name = "page", defaultValue = "1") int gamePage,
+                                     @RequestParam(name = "userPage", defaultValue = "1") int userPage,
+                                     @RequestParam(name = "adminPage", defaultValue = "1") int adminPage){
         int size = gameRepository.countAllByDeletedAtNull();
+        int userSize = userRepository.countAllByDeletedAtNull();
         int tabSize = (size + 6)/7;
-        if (page < 1){
-            page = 1;
+        int userTabSize = (userSize + 9)/10;
+        if (gamePage < 1){
+            gamePage = 1;
+        }
+        if (userPage < 1){
+            userPage = 1;
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 7);
+        Role role_admin = new Role("ROLE_ADMIN");
+        role_admin.setId(1);
+        Role role_user = new Role("ROLE_USER");
+        role_user.setId(2);
+
+        Pageable pageable = PageRequest.of(gamePage - 1, 7);
+        Pageable userPageable = PageRequest.of(userPage - 1, 10);
+        Pageable adminPageable = PageRequest.of(adminPage - 1, 10);
         List<Game> games = gameRepository.findAllByDeletedAtNullOrderByName(pageable);
-        List<Users> users = userRepository.findAllByDeletedAtNull(pageable);
+        List<Users> users = userRepository.findAllByDeletedAtNullAndRolesContaining(userPageable, role_user);
+        List<Users> admins = userRepository.findAllByDeletedAtNullAndRolesContaining(adminPageable, role_admin);
 
         model.addAttribute("users", users);
+        model.addAttribute("admins", admins);
         model.addAttribute("games", games);
         model.addAttribute("tabSize", tabSize);
+        model.addAttribute("userTabSize", userTabSize);
         return "/admin/panel";
     }
 
@@ -112,6 +128,46 @@ public class AdminController {
                     new Date(Calendar.getInstance().getTime().getTime()), publisher, developer, file.getOriginalFilename());
             gameRepository.save(g);
         }
+        return "redirect:/admin/panel";
+    }
+
+    @PostMapping(value = "/ban")
+    public String ban(@RequestParam int userID){
+        Users user = userRepository.findByID(userID);
+        user.setActive(false);
+        userRepository.save(user);
+        return "redirect:/admin/panel";
+    }
+
+    @PostMapping(value = "/unban")
+    public String unban(@RequestParam int userID){
+        Users user = userRepository.findByID(userID);
+        user.setActive(true);
+        userRepository.save(user);
+        return "redirect:/admin/panel";
+    }
+
+    @PostMapping(value = "/makeAdmin")
+    public String makeAdmin(@RequestParam int userID){
+        Users user = userRepository.findByID(userID);
+        Role role_admin = new Role("ROLE_ADMIN");
+        role_admin.setId(1);
+        Set<Role> new_role = new HashSet<>();
+        new_role.add(role_admin);
+        user.setRoles(new_role);
+        userRepository.save(user);
+        return "redirect:/admin/panel";
+    }
+
+    @PostMapping(value = "/unMakeAdmin")
+    public String unMakeAdmin(@RequestParam int adminID){
+        Users user = userRepository.findByID(adminID);
+        Role role_user = new Role("ROLE_USER");
+        role_user.setId(2);
+        Set<Role> new_role = new HashSet<>();
+        new_role.add(role_user);
+        user.setRoles(new_role);
+        userRepository.save(user);
         return "redirect:/admin/panel";
     }
 }
