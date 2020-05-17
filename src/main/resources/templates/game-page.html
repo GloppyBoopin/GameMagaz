@@ -62,7 +62,37 @@
                 <div class="game-price" th:utext="${game.calculatePrice()} +  ' $'">
                 </div>
                 <button class="game-buy">Buy</button>
-                <div class="game-description" th:utext="${game.description}"></div>
+                <div class="game-description" th:utext="'<h4>Description</h4>' + ${game.description}"></div>
+
+                <div class="game-comments">
+                    <h4>Comments</h4>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <form method="post" action="/addComment" class="comment-form">
+                            <input type="hidden" th:value="${game.ID}" name="gameID">
+<!--                            <label>Add your comment</label>-->
+                            <th:block th:if="${isActive}">
+                                <textarea class="comment-textarea" name="comment"></textarea>
+                                <button class="add-comment-button">Add comment</button>
+                            </th:block>
+                            <th:block th:unless="${isActive}">
+                                <textarea class="comment-textarea" name="comment" disabled style="color: red">You have been banned from leaving comments</textarea>
+                            </th:block>
+                        </form>
+                    </th:block>
+                    <div sec:authorize="isAnonymous()" class="comment-warning">Log in to leave comments</div>
+                    <div class="comment-wrapper">
+                        <div th:each="comment : ${comments}" class="comment">
+                            <h5 th:text="${comment.author.username}"></h5>
+                            <p th:text="${comment.content}"></p>
+                            <hr>
+                            <form method="post" action="/deleteComment" th:if="${userID == comment.author.id}">
+                                <input type="hidden" name="commentID" th:value="${comment.ID}">
+                                <input type="hidden" name="gameID" th:value="${game.ID}">
+                                <button class="delete-comment-button">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

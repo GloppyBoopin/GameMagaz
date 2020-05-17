@@ -214,6 +214,6 @@ public class Game {
         if (discount != 0){
             price = price*(1-discount);
         }
-        return price;
+        return Math.floor(price * 100) / 100;
     }
 }

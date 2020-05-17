@@ -1,3 +1,11 @@
+h4 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #f907fc;
+    font-size: 24px;
+}
+
 .game-background {
     background-image: linear-gradient(-45deg, #6c036f 0%, #046c6f 50%, #6c036f 100%);
     background-size: 200%;
@@ -150,4 +158,101 @@
     padding: 30px 20px;
     color: #05acaf;
     line-height: 30px;
+}
+
+.game-comments {
+    background: #333;
+    margin-top: 30px;
+    min-height: 400px;
+    padding: 30px 20px;
+    color: #05acaf;
+}
+
+.comment-form {
+    width: 550px;
+    margin: 0 auto;
+}
+
+.comment-form label {
+    font-weight: 600;
+}
+
+.comment-textarea {
+    width: 517px;
+    padding: 8px 16px;
+    margin: 8px 0;
+    font-size: 14px;
+    color: white;
+    outline: none;
+    border: 1px solid #222;
+    resize: vertical;
+    min-height: 60px;
+    max-height: 160px;
+    background-image: linear-gradient(to right, #6c036f 0%, #046c6f 100%);
+}
+
+.comment-warning {
+    padding: 10px;
+    text-align: center;
+    border: 3px double #059c9f;
+}
+
+.add-comment-button {
+    background-color: #f907fc;
+    background-image: linear-gradient(to right, #f907fc 0%, #05d6d9 100%);
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    background-size: 250% auto;
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    float: right;
+    transition: background-position 0.5s;
+    -webkit-transition: background-position 0.5s;
+    -moz-transition: background-position 0.5s;
+    -o-transition: background-position 0.5s;
+}
+
+.add-comment-button:hover {
+    background-position: right center;
+}
+
+.comment-wrapper {
+    margin-top: 70px;
+}
+
+.comment {
+    width: 550px;
+    margin: 0 auto;
+    background: #222;
+    padding: 20px 10px;
+}
+
+.comment h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f907fc;
+    margin: 0;
+}
+
+.comment p {
+    padding-left: 10px;
+}
+
+.comment hr {
+    background: #282828;
+    border: none;
+    height: 2px;
+}
+
+.delete-comment-button {
+    background: #222;
+    color: red;
+    border: none;
+    cursor: pointer;
+    float: right;
+    margin-top: -3px;
 }

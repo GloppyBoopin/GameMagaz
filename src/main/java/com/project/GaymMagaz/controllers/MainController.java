@@ -1,18 +1,29 @@
 package com.project.GaymMagaz.controllers;
 
+import com.project.GaymMagaz.entities.Comment;
 import com.project.GaymMagaz.entities.Game;
+import com.project.GaymMagaz.entities.Users;
+import com.project.GaymMagaz.repositories.CommentRepository;
 import com.project.GaymMagaz.repositories.GameRepository;
+import com.project.GaymMagaz.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -21,6 +32,10 @@ public class MainController {
     private String uploadPath;
     @Autowired
     GameRepository gameRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    CommentRepository commentRepository;
 
     @GetMapping(value = "/")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
@@ -54,9 +69,46 @@ public class MainController {
                            Model model){
         if (gameRepository.findByID(gameId).isPresent()){
             Game game = gameRepository.findByID(gameId).get();
+            List<Comment> comments = commentRepository.findAllByGame(game);
+
+            if (getUserData() != null) {
+                boolean active = getUserData().isActive();
+                model.addAttribute("isActive", active);
+                model.addAttribute("userID", getUserData().getId());
+            }
             model.addAttribute("game", game);
+            model.addAttribute("comments", comments);
             return "game-page";
         }
         return "redirect:/";
+    }
+
+    @PostMapping(value = "/addComment")
+    public String addComment(@RequestParam(name = "gameID") int gameID,
+                             @RequestParam(name = "comment") String comment){
+        if (gameRepository.findByID(gameID).isPresent()) {
+            Game game = gameRepository.findByID(gameID).get();
+            Comment c = new Comment(game, getUserData(), comment, new Date(Calendar.getInstance().getTime().getTime()));
+            commentRepository.save(c);
+        }
+        return "redirect:/game-page/" + gameID;
+    }
+
+    @PostMapping(value = "/deleteComment")
+    public String deleteComment(@RequestParam(name = "commentID") int commentID,
+                                @RequestParam(name = "gameID") int gameID){
+        Comment c = commentRepository.findByID(commentID);
+        commentRepository.delete(c);
+        return "redirect:/game-page/" + gameID;
+    }
+
+    public Users getUserData(){
+        Users userData = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            User secUser = (User)authentication.getPrincipal();
+            userData = userRepository.findByEmail(secUser.getUsername());
+        }
+        return userData;
     }
 }
