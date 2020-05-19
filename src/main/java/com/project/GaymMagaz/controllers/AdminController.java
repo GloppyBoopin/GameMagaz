@@ -67,12 +67,14 @@ public class AdminController {
         List<Game> games = gameRepository.findAllByDeletedAtNullOrderByName(pageable);
         List<Users> users = userRepository.findAllByDeletedAtNullAndRolesContaining(userPageable, role_user);
         List<Users> admins = userRepository.findAllByDeletedAtNullAndRolesContaining(adminPageable, role_admin);
+        List<Game> featured = gameRepository.findAllByFeaturedEquals(true);
 
         model.addAttribute("users", users);
         model.addAttribute("admins", admins);
         model.addAttribute("games", games);
         model.addAttribute("tabSize", tabSize);
         model.addAttribute("userTabSize", userTabSize);
+        model.addAttribute("featured", featured);
         return "/admin/panel";
     }
 
@@ -128,6 +130,22 @@ public class AdminController {
                     new Date(Calendar.getInstance().getTime().getTime()), publisher, developer, file.getOriginalFilename());
             gameRepository.save(g);
         }
+        return "redirect:/admin/panel";
+    }
+
+    @PostMapping(value = "/makeFeatured")
+    public String makeFeatured(@RequestParam int gameID){
+        Game g = gameRepository.findByID(gameID).get();
+        g.setFeatured(true);
+        gameRepository.save(g);
+        return "redirect:/admin/panel";
+    }
+
+    @PostMapping(value = "/unmakeFeatured")
+    public String unmakeFeatured(@RequestParam int gameID){
+        Game g = gameRepository.findByID(gameID).get();
+        g.setFeatured(false);
+        gameRepository.save(g);
         return "redirect:/admin/panel";
     }
 

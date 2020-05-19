@@ -26,37 +26,38 @@
 			</nav>
 		</div>
 	</header>
+	<div class="game-background"></div>
 	<main>
-		<div class="slider"><h2 style="color: #333;">/SLIDER/</h2></div>
+		<div class="slider"></div>
 		<div class="featured-games">
 			<h1 style="margin: 0; padding: 0; color: #f907fc; text-align: center;">
 				Featured
 			</h1>
 			<div id="featured1" class="featured">
-				<div class="featured-child bg1">
-					<a href="/featured">
-						Nigger
+				<div th:if="${featured1}" class="featured-child" th:style="'background:url(' + @{'/images/' + ${featured1.imagePath}} + '); background-size: 280px 140px;'">
+					<a th:href="@{'/game-page/' + ${featured1.ID}}" th:text="${featured1.name}">
+
 					</a>
 				</div>
 			</div>
 			<div id="featured2" class="featured">
-                <div class="featured-child bg2">
-                    <a href="/featured">
-                        Nigger
+                <div th:if="${featured2}" class="featured-child" th:style="'background:url(' + @{'/images/' + ${featured2.imagePath}} + '); background-size: 280px 140px;'">
+					<a th:href="@{'/game-page/' + ${featured2.ID}}" th:text="${featured2.name}">
+
                     </a>
                 </div>
             </div>
 			<div id="featured3" class="featured">
-                <div class="featured-child bg3">
-                    <a href="/featured">
-                        Nigger
+                <div th:if="${featured3}" class="featured-child" th:style="'background:url(' + @{'/images/' + ${featured3.imagePath}} + '); background-size: 280px 140px;'">
+					<a th:href="@{'/game-page/' + ${featured3.ID}}" th:text="${featured3.name}">
+
                     </a>
                 </div>
             </div>
 			<div id="featured4" class="featured">
-                <div class="featured-child bg4">
-                    <a href="/featured">
-                        Nigger
+                <div th:if="${featured4}" class="featured-child" th:style="'background:url(' + @{'/images/' + ${featured4.imagePath}} + '); background-size: 280px 140px;'">
+					<a th:href="@{'/game-page/' + ${featured4.ID}}" th:text="${featured4.name}">
+
                     </a>
                 </div>
             </div>

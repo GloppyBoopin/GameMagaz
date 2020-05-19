@@ -47,6 +47,17 @@ public class MainController {
 
         Pageable pageable = PageRequest.of(page - 1, 7);
         List<Game> games = gameRepository.findAllByDeletedAtNullOrderByName(pageable);
+        List<Game> featured = gameRepository.findAllByFeaturedEquals(true);
+        if (featured.size() >= 4) {
+            Game featured1 = featured.get(0);
+            Game featured2 = featured.get(1);
+            Game featured3 = featured.get(2);
+            Game featured4 = featured.get(3);
+            model.addAttribute("featured1", featured1);
+            model.addAttribute("featured2", featured2);
+            model.addAttribute("featured3", featured3);
+            model.addAttribute("featured4", featured4);
+        }
 
         model.addAttribute("games", games);
         model.addAttribute("tabSize", tabSize);

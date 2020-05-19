@@ -26,6 +26,34 @@ body{
   background: linear-gradient(to top, #ac07af 0%, #05acaf 100%);
 }
 
+.game-background {
+  background-image: linear-gradient(-45deg, #6c036f 0%, #046c6f 50%, #6c036f 100%);
+  background-size: 200%;
+  width: 100%;
+  height: 350px;
+  position: absolute;
+  z-index: 1;
+  animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+  0%{
+    background-position: 0 50%;
+  }
+  25%{
+    background-position: 50% 100%;
+  }
+  50%{
+    background-position: 100% 150%;
+  }
+  75%{
+    background-position: 50% 100%;
+  }
+  100%{
+    background-position: 0 50%;
+  }
+}
+
 .nav-wrapper {
   position: relative;
   background: #333;
@@ -112,32 +140,34 @@ nav ul li a:hover {
 }
 
 main {
+  position: relative;
   z-index: 9;
   width: 1300px;
   margin: 0 auto;
 }
 
 .slider {
-  border: 8px solid #333;
+  box-shadow: 0 0 0 8px #333 inset;
   text-align: center;
-  width: 98.8%;
-  height: 400px;
+  width: 100%;
+  opacity: 0.5;
+  height: 350px;
 }
 
 .featured-games {
   background-color: #333;
   width: 100%;
-  height: 400px;
+  height: 250px;
 }
 
 .featured {
   position: relative;
   overflow: hidden;
   color: #333;
-  width: 250px;
-  height: 280px;
+  width: 280px;
+  height: 140px;
   margin-top: 25px;
-  background-color: #ededed;
+  background-color: #333;
   cursor: pointer;
   border: 2px solid #222;
   /*box-shadow: 0 2px 12px #666;*/
@@ -149,7 +179,7 @@ main {
 .featured-child {
   height: 100%  ;
   width: 100%;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   color: white;
   font-size: 18px;
@@ -161,10 +191,11 @@ main {
 
 .featured a{
   display: none;
-  font-size: 24px;
-  color: white !important;
+  font-size: 18px;
+  color: #f907fc !important;
+  font-weight: 500;
   text-align: center;
-  padding: 125px 0;
+  padding: 100px 0 0 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -205,37 +236,24 @@ main {
   opacity: 0.5;
 }
 
-.bg1 {
-  background-image: url("/images/BWJrfbGPfUA.jpg");
-}
-.bg2 {
-  background-image: url("/images/BWJrfbGPfUA.jpg");
-}
-.bg3 {
-  background-image: url("/images/BWJrfbGPfUA.jpg");
-}
-.bg4 {
-  background-image: url("/images/BWJrfbGPfUA.jpg");
-}
-
 #featured1 {
   float: left;
-  margin-left: 30px;
+  margin-left: 15px;
 }
 
 #featured2 {
   float: left;
-  margin-left: 72px;
+  margin-left: 44px;
 }
 
 #featured3 {
   float: right;
-  margin-right: 30px;
+  margin-right: 15px;
 }
 
 #featured4 {
   float: right;
-  margin-right: 72px;
+  margin-right: 44px;
 }
 
 .something {

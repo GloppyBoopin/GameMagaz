@@ -207,3 +207,21 @@ textarea {
 .user-list-action:hover {
     background-color: #222;
 }
+
+.make-featured-button {
+    height: 20px;
+    text-align: center;
+    float: right;
+    position: absolute;
+    bottom: 3px;
+    color: red;
+    cursor: pointer;
+    background: #333;
+    border: 1px solid #282828;
+    outline: none;
+    margin-left: -120px;
+}
+
+.make-featured-button:hover {
+    background: #222;
+}

@@ -33,6 +33,8 @@ public class Game {
     private String developer;
     @Column(name = "image_path")
     private String imagePath;
+    @Column(name = "is_featured")
+    private boolean featured;
 
     public Game() {
     }
@@ -48,6 +50,7 @@ public class Game {
         this.publisher = publisher;
         this.developer = developer;
         this.imagePath = imagePath;
+        this.featured = false;
     }
 
     public int getID() {
@@ -136,6 +139,14 @@ public class Game {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
     }
 
     public String formatAddedDate(){
