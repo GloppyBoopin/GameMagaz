@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <meta charset="UTF-8">
     <title>Task 3</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/panel.css">
@@ -74,13 +75,14 @@
                             <div class="game-preview">
                                 <img alt="Game Image" th:src="@{'/images/' + ${game.imagePath}}" class="game-preview-image">
                                 <div class="game-preview-name-date">
+                                    <div class="game-preview-discount" th:unless="${game.formatDiscount() == '0'}" th:text=${game.formatDiscount()}></div>
                                     <div class="game-preview-name" th:text="${game.name}"></div>
                                     <div class="game-preview-categories">
                                         <span class="game-preview-category" th:text="${game.getCategoriesNames()}"></span>
                                     </div>
                                     <div class="game-preview-date" th:text="'Added at ' + ${game.formatAddedDate()}"></div>
                                 </div>
-                                <div class="game-preview-price" th:text="${game.price} + '$'"></div>
+                                <div class="game-preview-price" th:text="${game.calculatePrice()} + '$'"></div>
                                 <form method="post" action="/admin/makeFeatured">
                                     <input type="hidden" th:value="${game.ID}" name="gameID">
                                     <button class="make-featured-button">Make featured</button>
@@ -100,13 +102,14 @@
                             <div class="game-preview">
                                 <img alt="Game Image" th:src="@{'/images/' + ${game.imagePath}}" class="game-preview-image">
                                 <div class="game-preview-name-date">
+                                    <div class="game-preview-discount" th:unless="${game.formatDiscount() == '0'}" th:text=${game.formatDiscount()}></div>
                                     <div class="game-preview-name" th:text="${game.name}"></div>
                                     <div class="game-preview-categories">
                                         <span class="game-preview-category" th:text="${game.getCategoriesNames()}"></span>
                                     </div>
                                     <div class="game-preview-date" th:text="'Added at ' + ${game.formatAddedDate()}"></div>
                                 </div>
-                                <div class="game-preview-price" th:text="${game.price} + '$'"></div>
+                                <div class="game-preview-price" th:text="${game.calculatePrice()} + '$'"></div>
                                 <form method="post" action="/admin/unmakeFeatured">
                                     <input type="hidden" th:value="${game.ID}" name="gameID">
                                     <button class="make-featured-button">Unmake featured</button>

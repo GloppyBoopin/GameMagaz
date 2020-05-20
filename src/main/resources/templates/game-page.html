@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <meta charset="UTF-8">
     <title>Task 3</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/game-page.css">
@@ -61,7 +62,7 @@
                 </div>
                 <div class="game-price" th:utext="${game.calculatePrice()} +  ' $'">
                 </div>
-                <button class="game-buy">Buy</button>
+                <a th:href="@{'/buy/' + ${game.ID}}" class="game-buy">Buy</a>
                 <div class="game-description" th:utext="'<h4>Description</h4>' + ${game.description}"></div>
 
                 <div class="game-comments">

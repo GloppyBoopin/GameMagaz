@@ -215,6 +215,9 @@ public class Game {
 
     public String formatDiscount(){
         double discount = this.discount;
+        if (discount == 0.0){
+            return "0";
+        }
         int discount_int = (int)(discount*100);
         return "-" + String.valueOf(discount_int) + "%";
     }

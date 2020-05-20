@@ -136,6 +136,7 @@ h4 {
     font-size: 24px;
     width: 200px;
     text-align: center;
+    text-decoration: none;
     background: transparent;
     color: #f907fc;
     font-weight: 400;
@@ -229,6 +230,7 @@ h4 {
     margin: 0 auto;
     background: #222;
     padding: 20px 10px;
+    margin-bottom: 20px;
 }
 
 .comment h5 {

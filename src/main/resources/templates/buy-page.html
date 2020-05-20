@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Task 3</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/buy-page.css">
 </head>
 <body>
-
+    <header>
+        <div class="nav-wrapper">
+            <nav>
+                <a style="padding: 0;" href="/">
+                    <div class="logo" style="background: url('/images/blank1.png') no-repeat;"></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a class="active" href="/">Home</a></li>
+                </ul>
+                <ul class="login-links">
+                    <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/panel">Admin panel</a></li>
+                    <div sec:authorize="isAnonymous()">
+                        <li><a href="/login-reg">Login</a></li>
+                        <li><a href="/login-reg">Register</a></li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="game-background"></div>
+    <h1>You are buying</h1>
+    <main>
+        <div class="buy-wrapper">
+            <img class="buy-game-image" th:src="@{'/images/' + ${game.imagePath}}">
+            <div class="buy-info">
+                <h3 th:text="${game.name}"></h3>
+                <ul class="buy-info-list">
+                    <li>
+                        <div class="buy-info-left">Discount</div>
+                        <div class="buy-info-right" th:text="${game.formatDiscount()}"></div>
+                    </li>
+                    <li>
+                        <div class="buy-info-left">Price</div>
+                        <div class="buy-info-right" th:text="${game.calculatePrice()} + '$'"></div>
+                    </li>
+                </ul>
+                <button class="buy-button">Buy</button>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

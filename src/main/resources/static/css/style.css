@@ -192,7 +192,7 @@ main {
 .featured a{
   display: none;
   font-size: 18px;
-  color: #f907fc !important;
+  color: #05d6d9 !important;
   font-weight: 500;
   text-align: center;
   padding: 100px 0 0 0;
@@ -232,7 +232,7 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #05d6d9;
+  background-color: #111;
   opacity: 0.5;
 }
 
@@ -345,6 +345,18 @@ footer {
   /*border-left: 2px solid #282828;*/
   text-align: center;
   float: left;
+}
+
+.game-preview-discount {
+  float: right;
+  width: 100px;
+  box-shadow: 0 0 0 2px #f907fc inset;
+  -webkit-box-shadow: 0 0 0 2px #f907fc inset;
+  -moz-box-shadow: 0 0 0 2px #f907fc inset;
+  -o-box-shadow: 0 0 0 2px #f907fc inset;
+  color: #f907fc;
+  padding: 30px 0;
+  text-align: center;
 }
 
 .page-button {

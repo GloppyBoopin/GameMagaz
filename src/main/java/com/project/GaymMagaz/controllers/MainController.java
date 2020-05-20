@@ -70,16 +70,12 @@ public class MainController {
         return "login-reg";
     }
 
-    @GetMapping(value = "/featured")
-    public String featured(Model model){
-        return "featured";
-    }
 
     @GetMapping(value = "/game-page/{id}")
-    public String gamePage(@PathVariable(name = "id") int gameId,
+    public String gamePage(@PathVariable(name = "id") int gameID,
                            Model model){
-        if (gameRepository.findByID(gameId).isPresent()){
-            Game game = gameRepository.findByID(gameId).get();
+        if (gameRepository.findByID(gameID).isPresent()){
+            Game game = gameRepository.findByID(gameID).get();
             List<Comment> comments = commentRepository.findAllByGame(game);
 
             if (getUserData() != null) {
@@ -92,6 +88,14 @@ public class MainController {
             return "game-page";
         }
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/buy/{id}")
+    public String buy(@PathVariable(name = "id") int gameID,
+                      Model model){
+        Game g = gameRepository.findByID(gameID).get();
+        model.addAttribute("game", g);
+        return "buy-page";
     }
 
     @PostMapping(value = "/addComment")
