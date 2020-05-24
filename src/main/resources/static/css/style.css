@@ -10,6 +10,14 @@ body{
   padding: 0;
 }
 
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

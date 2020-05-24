@@ -55,7 +55,17 @@
                         </li>
                     </ul>
                 </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="game-admin-actions">
+                    <form method="get" th:action="@{'/admin/edit/' + ${game.ID}}">
+                        <button class="edit-game-button left">Edit</button>
+                    </form>
+                    <form method="post" action="/admin/deleteGame">
+                        <input type="hidden" th:value="${game.ID}" name="gameID">
+                        <button class="delete-game-button right">Delete</button>
+                    </form>
+                </div>
             </div>
+
             <div class="game-right">
                 <div th:if="${game.discount != 0}" class="game-discount">
                     <div th:text="${game.formatDiscount()}"></div>

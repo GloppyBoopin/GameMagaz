@@ -8,6 +8,7 @@ import com.project.GaymMagaz.repositories.CategoryRepository;
 import com.project.GaymMagaz.repositories.GameRepository;
 import com.project.GaymMagaz.repositories.UserRepository;
 import com.project.GaymMagaz.services.UserService;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -15,10 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -88,7 +86,7 @@ public class AdminController {
                            @RequestParam("developer") String developer,
                            @RequestParam("categories") String categories,
                            @RequestParam("image") MultipartFile file) throws IOException {
-        String[] cats = categories.split(",");
+        String[] cats = categories.split(", ");
         List<Category> resultCategories = new ArrayList<Category>();
         int errors = 0;
         if (gameRepository.findByName(name).isPresent()){
@@ -187,5 +185,87 @@ public class AdminController {
         user.setRoles(new_role);
         userRepository.save(user);
         return "redirect:/admin/panel";
+    }
+
+    @PostMapping(value = "/deleteGame")
+    public String deleteGame(@RequestParam int gameID){
+        Game g = gameRepository.findByID(gameID).get();
+        g.setDeletedAt(new Date(Calendar.getInstance().getTime().getTime()));
+        gameRepository.save(g);
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public String editPage(@PathVariable("id") int gameID,
+                           Model model){
+        Game g = gameRepository.findByID(gameID).get();
+        model.addAttribute("game", g);
+        return "/admin/edit-game";
+    }
+
+    @PostMapping(value = "/editGame")
+    public String editGame(Model model,
+                           @RequestParam(name = "gameID") int gameID,
+                           @RequestParam(name = "name") String name,
+                           @RequestParam(name = "price") double price,
+                           @RequestParam(name = "discount") double discount,
+                           @RequestParam(name = "description") String description,
+                           @RequestParam("publisher") String publisher,
+                           @RequestParam("developer") String developer,
+                           @RequestParam("categories") String categories,
+                           @RequestParam("image") MultipartFile file) throws IOException {
+        String[] cats = categories.split(", ");
+        String imagePath = "";
+        List<Category> resultCategories = new ArrayList<Category>();
+        Game g = gameRepository.findByID(gameID).get();
+        int errors = 0;
+        if (gameRepository.findByName(name).isPresent()){
+            if (!name.equals(g.getName())) {
+                model.addAttribute("game_name_error", "This game already exists");
+                errors++;
+            }
+        }
+
+        if (discount < 0 || discount >= 1){
+            model.addAttribute("game_discount_error", "Discount multiplier should be greater than 0 and less than 1");
+            errors++;
+        }
+
+        if (errors > 0){
+            model.addAttribute("game", g);
+            return "/admin/edit-game";
+        }
+        if (file != null) {
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
+            imagePath = file.getOriginalFilename();
+        } else {
+            imagePath = g.getImagePath();
+        }
+
+        for (String c : cats){
+            if (categoryRepository.findByName(c).isPresent()) {
+                Category cat_db = categoryRepository.findByName(c).get();
+                resultCategories.add(cat_db);
+            } else {
+                categoryRepository.save(new Category(c));
+                Category cat_db = categoryRepository.findByName(c).get();
+                resultCategories.add(cat_db);
+            }
+        }
+        g.setName(name);
+        g.setPrice(price);
+        g.setCategories(resultCategories);
+        g.setDescription(description);
+        g.setDiscount(discount);
+        g.setDeveloper(developer);
+        g.setPublisher(publisher);
+        g.setImagePath(imagePath);
+        gameRepository.save(g);
+
+        return "redirect:/game-page/" + gameID;
     }
 }

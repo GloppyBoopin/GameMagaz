@@ -107,6 +107,40 @@ h4 {
     color: #6c036f;
 }
 
+.game-admin-actions {
+    width: 100%;
+    margin-top: 120px;
+    height: 30px;
+}
+
+.edit-game-button {
+    width: 48%;
+    border: 2px solid #05acaf;
+    padding: 10px;
+    color: #05d6d9;
+    outline: none;
+    cursor: pointer;
+    background: #333;
+}
+
+.edit-game-button:hover {
+    background: #222;
+}
+
+.delete-game-button {
+    width: 48%;
+    border: 2px solid #ac07af;
+    padding: 10px;
+    color: #f907fc;
+    outline: none;
+    cursor: pointer;
+    background: #333;
+}
+
+.delete-game-button:hover {
+    background: #222;
+}
+
 .game-right {
     width: 700px;
     float: right;

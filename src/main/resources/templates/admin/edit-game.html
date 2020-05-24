@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/panel.css">
+    <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/is-file-uploaded.js"></script>
+    <script type="text/javascript" src="/js/display-image.js"></script>
+
+    <style>
+        .game-image {
+            width: 300px;
+            height: 150px;
+            display: block;
+            margin-bottom: -10px;
+        }
+
+        .new-game-image {
+            width: 300px;
+            height: 150px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-wrapper">
+            <nav>
+                <a style="padding: 0;" href="/">
+                    <div class="logo" style="background: url('/images/blank1.png') no-repeat;"></div>
+                </a>
+                <ul class="nav-links">
+                    <li><a class="active" href="/">Home</a></li>
+                </ul>
+                <ul class="login-links">
+                    <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/panel">Admin panel</a></li>
+                    <div sec:authorize="isAnonymous()">
+                        <li><a href="/login-reg">Login</a></li>
+                        <li><a href="/login-reg">Register</a></li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="game-background"></div>
+    <main>
+        <div id="add-game" class="admin-action-content">
+            <form class="add-from" method="post" enctype="multipart/form-data" th:action="@{'/admin/editGame'}">
+                <input type="hidden" name="gameID" th:value="${game.ID}">
+                <label for="file-upload" class="custom-file-upload">
+                    Upload Image
+                </label>
+                <input id="file-upload" type="file" name="image" onchange="showName(); readURL(this);"/>
+                <label id="file-name"><span th:utext = "${file_error}"></span></label>
+                <br><br><br>
+                <img class="game-image" th:src="@{'/images/' + ${game.imagePath}}" alt="Game Image">
+                <br>
+                <label>Game name:</label>
+                <span th:utext = "${game_name_error}"></span>
+                <input type="text" name="name" required th:value="${game.name}">
+                <label>Game price:</label>
+                <input type="number" name="price" required step="0.01" min="0" th:value="${game.price}">
+                <label>Discount:</label>
+                <span th:utext = "${game_discount_error}"></span>
+                <input type="number" step="0.01" min="0" name="discount" th:value="${game.discount}">
+                <label>Categories:</label>
+                <input type="text" name="categories" th:value="${game.getCategoriesNames()}">
+                <label>Publisher:</label>
+                <input type="text" name="publisher" th:value="${game.publisher}">
+                <label>Developer:</label>
+                <input type="text" name="developer" th:value="${game.developer}">
+                <label>Description:</label>
+                <textarea rows="5" name="description" required th:text="${game.description}"></textarea>
+                <button type="submit" class="submit">Save</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
