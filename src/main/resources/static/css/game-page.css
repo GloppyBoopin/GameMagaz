@@ -98,12 +98,19 @@ h4 {
     text-align: left;
 }
 
-.game-developers-categories-value a{
+.game-developers-categories-value .category-search-link{
     color: #f907fc;
     text-decoration: underline;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: #333;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 300;
 }
 
-.game-developers-categories-value a:hover {
+.game-developers-categories-value .category-search-link:hover {
     color: #6c036f;
 }
 
@@ -183,7 +190,7 @@ h4 {
 }
 
 .game-buy:hover {
-    background: #ac07af;
+    background: #6c036f;
 }
 
 .game-description {
@@ -204,7 +211,7 @@ h4 {
 }
 
 .comment-form {
-    width: 550px;
+    width: 555px;
     margin: 0 auto;
 }
 
@@ -219,11 +226,11 @@ h4 {
     font-size: 14px;
     color: white;
     outline: none;
-    border: 1px solid #222;
+    border: 3px solid #f907fc;
     resize: vertical;
     min-height: 60px;
     max-height: 160px;
-    background-image: linear-gradient(to right, #6c036f 0%, #046c6f 100%);
+    background: #222;
 }
 
 .comment-warning {
@@ -233,7 +240,7 @@ h4 {
 }
 
 .add-comment-button {
-    background-color: #f907fc;
+    background-color: #05d6d9;
     background-image: linear-gradient(to right, #f907fc 0%, #05d6d9 100%);
     box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
     background-size: 250% auto;

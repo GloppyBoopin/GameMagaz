@@ -216,7 +216,7 @@ public class AdminController {
                            @RequestParam("image") MultipartFile file) throws IOException {
         String[] cats = categories.split(", ");
         String imagePath = "";
-        List<Category> resultCategories = new ArrayList<Category>();
+        List<Category> resultCategories = new ArrayList<>();
         Game g = gameRepository.findByID(gameID).get();
         int errors = 0;
         if (gameRepository.findByName(name).isPresent()){

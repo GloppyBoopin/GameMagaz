@@ -1,8 +1,10 @@
 package com.project.GaymMagaz.controllers;
 
+import com.project.GaymMagaz.entities.Category;
 import com.project.GaymMagaz.entities.Comment;
 import com.project.GaymMagaz.entities.Game;
 import com.project.GaymMagaz.entities.Users;
+import com.project.GaymMagaz.repositories.CategoryRepository;
 import com.project.GaymMagaz.repositories.CommentRepository;
 import com.project.GaymMagaz.repositories.GameRepository;
 import com.project.GaymMagaz.repositories.UserRepository;
@@ -36,6 +38,8 @@ public class MainController {
     UserRepository userRepository;
     @Autowired
     CommentRepository commentRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @GetMapping(value = "/")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "1") int page){
@@ -115,6 +119,25 @@ public class MainController {
         Comment c = commentRepository.findByID(commentID);
         commentRepository.delete(c);
         return "redirect:/game-page/" + gameID;
+    }
+
+    @GetMapping(value = "/search")
+    public String search(@RequestParam String search,
+                         Model model){
+        List<Game> games = gameRepository.findAllByDeletedAtNullAndNameContaining(search);
+        if (!games.isEmpty()){
+            model.addAttribute("games", games);
+            return "search-page";
+        } else {
+            if (categoryRepository.findByName(search).isPresent()){
+                Category c = categoryRepository.findByName(search).get();
+                games = gameRepository.findAllByDeletedAtNullAndCategoriesContaining(c);
+                model.addAttribute("games", games);
+                return "search-page";
+            }
+        }
+        model.addAttribute("search_error", "Nothing found :(");
+        return "search-page";
     }
 
     public Users getUserData(){

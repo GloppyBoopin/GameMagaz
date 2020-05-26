@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Task 3</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/game-page.css">
 </head>
@@ -17,6 +18,12 @@
                 <ul class="nav-links">
                     <li><a class="active" href="/">Home</a></li>
                 </ul>
+                <div class="search-wrapper">
+                    <form action="/search" method="get">
+                        <input class="search-bar" placeholder="Search..." name="search">
+                        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
                 <ul class="login-links">
                     <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/panel">Admin panel</a></li>
@@ -41,7 +48,10 @@
                             <div class="game-developers-categories-key">Genres</div>
                             <div class="game-developers-categories-value">
                                 <div style="display: inline-block;" th:each="c : ${game.categories}">
-                                    <a th:href="@{'/search/' + ${c.name}}" class="category-search-link" th:text="${c.name}"></a>
+                                    <form method="get" action="/search">
+                                        <input type="hidden" name="search" th:value="${c.name}">
+                                        <button class="category-search-link" th:text="${c.name}"></button>
+                                    </form>
                                 </div>
                             </div>
                         </li>

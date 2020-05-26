@@ -113,6 +113,57 @@ nav {
   background-position: right center;
 }
 
+.search-wrapper {
+  position: absolute;
+  left: 460px;
+  padding: 9px 15px;
+  background: #1d1d1d;
+}
+
+.search-bar {
+  padding: 10px;
+  color: white;
+  width: 300px;
+  background-color: #1d1d1d;
+  border: 3px solid #f907fc;
+  border-right: 0;
+  margin-right: 10px;
+}
+
+.search-bar:focus {
+  outline: none;
+}
+
+.search-bar:-webkit-autofill,
+.search-bar:-webkit-autofill:hover,
+.search-bar:-webkit-autofill:focus,
+.search-bar:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 50px #ac07af inset;
+  -webkit-text-fill-color: white;
+}
+
+.search-button {
+  padding: 10px;
+  float: right;
+  cursor: pointer;
+  border: 3px solid #f907fc;
+  border-left: 0;
+  background-color: #1d1d1d;
+  color: white;
+  transition: background-color 0.5s;
+  -webkit-transition: background-color 0.5s;
+  -moz-transition: background-color 0.5s;
+  -o-transition: background-color 0.5s;
+}
+
+.search-button:hover {
+  background-color: #ac07af;
+}
+
+.search-button:focus {
+  outline: none;
+}
+
 nav ul li a {
   width: 100px;
   display: block;
@@ -175,20 +226,17 @@ main {
   width: 280px;
   height: 140px;
   margin-top: 25px;
-  background-color: #333;
   cursor: pointer;
-  border: 2px solid #222;
-  /*box-shadow: 0 2px 12px #666;*/
-  /*-moz-box-shadow: 0 2px 12px #666;*/
-  /*-webkit-box-shadow: 0 2px 12px #666;*/
-  /*-o-box-shadow: 0 2px 12px #666;*/
+  background: linear-gradient(217deg, #f907fc, #05d6d9), linear-gradient(127deg, #f907fc, #05d6d9 70.71%), linear-gradient(336deg, #f907fc, #05d6d9 70.71%);
+  background-size: 300% 100%;
+  animation: featured-gradient 1.5s linear infinite;
+  animation-direction: alternate;
 }
 
 .featured-child {
-  height: 100%  ;
+  height: 100%;
   width: 100%;
   background-size: contain;
-  background-repeat: no-repeat;
   color: white;
   font-size: 18px;
   -webkit-transition: all .5s;
@@ -197,11 +245,20 @@ main {
   transition: all .5s;
 }
 
+@keyframes featured-gradient{
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
 .featured a{
   display: none;
-  font-size: 18px;
-  color: #05d6d9 !important;
-  font-weight: 500;
+  font-size: 24px;
+  color: #f907fc !important;
+  font-weight: 600;
   text-align: center;
   padding: 100px 0 0 0;
   position: absolute;
@@ -214,12 +271,19 @@ main {
   text-decoration: none;
 }
 
+.featured:hover, .featured:focus {
+  box-shadow: 0 0 10px #f907fc, 0 0 7px #05d6d9;
+  -webkit-box-shadow: 0 0 10px #f907fc, 0 0 7px #05d6d9;
+  -moz-box-shadow: 0 0 10px #f907fc, 0 0 7px #05d6d9;
+  -o-box-shadow: 0 0 10px #f907fc, 0 0 7px #05d6d9;
+}
+
 .featured:hover .featured-child,
 .featured:focus .featured-child{
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -o-transform: scale(1.2);
+  transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -webkit-transform: scale(0.9);
+  -o-transform: scale(0.9);
 }
 
 .featured:hover .featured-child:before,
@@ -240,8 +304,8 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #111;
-  opacity: 0.5;
+  background: #111;
+  opacity: 0.3;
 }
 
 #featured1 {
@@ -264,14 +328,6 @@ main {
   margin-right: 44px;
 }
 
-.something {
-  text-align: center;
-  width: 98.8%;
-  border: 8px solid #333;
-  height: 400px;
-  color: #333;
-}
-
 footer {
   text-align: center;
   color: #333;
@@ -286,16 +342,21 @@ footer {
   box-shadow: 0 0 6px 1px #111;
 }
 
+.game-preview-wrapper-index {
+  float: none;
+  background: #333;
+}
+
 .game-preview {
   position: relative;
   padding: 0;
   margin-bottom: 5px;
+  background: #222;
   border-bottom: 2px solid #282828;
   font-size: 18px;
   color: #05d6d9;
   width: 100%;
   height: 100px;
-  background: #222;
   transition: background 0.5s;
   -webkit-transition: background 0.5s;
   -moz-transition: background 0.5s;
@@ -358,10 +419,10 @@ footer {
 .game-preview-discount {
   float: right;
   width: 100px;
-  box-shadow: 0 0 0 2px #f907fc inset;
-  -webkit-box-shadow: 0 0 0 2px #f907fc inset;
-  -moz-box-shadow: 0 0 0 2px #f907fc inset;
-  -o-box-shadow: 0 0 0 2px #f907fc inset;
+  box-shadow: 0 0 0 2px #ac07af inset;
+  -webkit-box-shadow: 0 0 0 2px #ac07af inset;
+  -moz-box-shadow: 0 0 0 2px #ac07af inset;
+  -o-box-shadow: 0 0 0 2px #ac07af inset;
   color: #f907fc;
   padding: 30px 0;
   text-align: center;

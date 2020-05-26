@@ -1,0 +1,36 @@
+.search-wrapper {
+    position: relative;
+    padding: 0;
+    width: 800px;
+    margin: 100px auto;
+    left: 0;
+}
+
+.search-bar {
+    width: 691px;
+    padding: 15px;
+    font-size: 24px;
+    margin-right: 20px;
+}
+
+.search-button {
+    padding: 15px;
+    font-size: 24px;
+}
+
+.games-catalogue {
+    min-height: 0;
+}
+
+.search-error {
+    color: white;
+    font-size: 36px;
+    padding: 15px;
+    width: 800px;
+    margin: 200px auto;
+    border: 3px solid #05d6d9;
+    text-align: center;
+    font-weight: bold;
+}
+
+

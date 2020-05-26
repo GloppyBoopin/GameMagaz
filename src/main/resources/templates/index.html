@@ -3,7 +3,8 @@
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
-	<title>Task 3</title>
+    <title>Task 3</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
@@ -16,6 +17,12 @@
 				<ul class="nav-links">
 					<li><a class="active" href="/">Home</a></li>
 				</ul>
+                <div class="search-wrapper">
+                    <form action="/search" method="get">
+                        <input class="search-bar" placeholder="Search..." name="search">
+                        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
 				<ul class="login-links">
 					<li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/panel">Admin panel</a></li>
@@ -65,7 +72,7 @@
 		</div>
 		<div class="games-catalogue">
             <h1 style="color: #f907fc; text-align: center">Catalogue</h1>
-            <div class="game-preview-wrapper" style="float: none; background: #333;">
+            <div class="game-preview-wrapper game-preview-wrapper-index">
                 <div th:each="game : ${games}">
                     <a class="game-link" th:href="@{'/game-page/' + ${game.ID}}">
                         <div class="game-preview">
