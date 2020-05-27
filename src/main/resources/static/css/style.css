@@ -205,15 +205,182 @@ main {
   margin: 0 auto;
 }
 
-.slider {
-  box-shadow: 0 0 0 8px #333 inset;
-  text-align: center;
-  width: 100%;
-  opacity: 0.5;
+.slick-carousel {
+  width: 1100px;
   height: 350px;
+  margin: 0 auto;
+}
+
+.slick-dotted.slick-slider {
+  margin-bottom: 0px;
+}
+
+.slick-item {
+  height: 350px;
+  background: #282828;
+  cursor: pointer;
+}
+
+.slick-item:focus{
+  outline: none;
+}
+
+.slick-item a:focus {
+  outline: none;
+}
+
+.slick-prev {
+  top: 160px;
+  left: -40px;
+}
+
+.slick-next{
+  top: 160px;
+}
+
+.slick-prev:before {
+  content: "";
+  font-family: 'FontAwesome';
+  opacity: 0.5;
+  color: white;
+  font-size: 48px;
+}
+
+.slick-next:before {
+  content: "";
+  font-family: 'FontAwesome';
+  opacity: 0.5;
+  color: white;
+  font-size: 48px;
+}
+
+.slick-dots {
+  bottom: 10px;
+  cursor: pointer;
+  width: 120px;
+  left: 44.8%;
+}
+
+.slick-dots li button:before {
+  content: "";
+  border: 2px solid #fff;
+  opacity: 0.5;
+  background: white;
+  color: white;
+  height: 8px;
+  width: 8px;
+  border-radius: 75px;
+  -webkit-border-radius:75px;
+  -moz-border-radius:75px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: white;
+  background-color: white;
+  opacity: 1;
+  border: 2px solid white !important;
+}
+
+.slider-image {
+  height: 350px;
+  width: 700px;
+  background: #212121;
+  position: relative;
+  z-index: 3;
+  transition: transform 0.5s;
+  -webkit-transition: transform 0.5s;
+  -moz-transition: transform 0.5s;
+  -o-transition: transform 0.5s;
+}
+
+.slick-item:hover .slider-image,
+.slick-dots:hover .slider-image {
+  transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -o-transform: scale(1.1);
+}
+
+.slider-description {
+  width: 380px;
+  height: 330px;
+  position: relative;
+  box-shadow: -3px 0 10px 1px #111;
+  z-index: 4;
+  padding: 10px;
+}
+
+.slider-game-name {
+  margin-top: 10px;
+  color: white;
+}
+
+.slider-game-categories {
+  padding: 0;
+  margin: 40px 0;
+}
+
+.slider-game-categories li {
+  display: inline-block;
+}
+
+.slider-category-button {
+  border: none;
+  padding: 6px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  background: #333333;
+  color: #f907fc;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.slider-category-button:hover {
+  color: #6c036f;
+  outline: none;
+}
+
+.slider-game-discount-price {
+  position: absolute;
+  bottom: 80px;
+  width: 380px;
+}
+
+.slider-game-discount {
+  display: inline-block;
+  width: 150px;
+  box-shadow: 0 0 0 2px #ac07af inset;
+  -webkit-box-shadow: 0 0 0 2px #ac07af inset;
+  -moz-box-shadow: 0 0 0 2px #ac07af inset;
+  -o-box-shadow: 0 0 0 2px #ac07af inset;
+  color: #f907fc;
+  padding: 16px 0;
+  text-align: center;
+  font-size: 24px;
+}
+
+.slider-game-price {
+  display: inline-block;
+  color: white;
+  padding: 16px;
+  background: linear-gradient(90deg, #05d6d9, #057c7f);
+  font-size: 24px;
+  text-align: right;
+  margin-top: 0;
+  text-decoration: underline;
+  box-shadow: 0 0 5px 1px #057c7f;
+}
+
+.slider-game-date {
+  position: absolute;
+  bottom: 17px;
+  color: #057c7f;
+  font-size: 14px;
 }
 
 .featured-games {
+  padding-top: 10px;
   background-color: #333;
   width: 100%;
   height: 250px;
@@ -225,12 +392,17 @@ main {
   color: #333;
   width: 280px;
   height: 140px;
-  margin-top: 25px;
+  margin-top: 15px;
   cursor: pointer;
+  box-shadow: 0 0 5px 3px #222;
   background: linear-gradient(217deg, #f907fc, #05d6d9), linear-gradient(127deg, #f907fc, #05d6d9 70.71%), linear-gradient(336deg, #f907fc, #05d6d9 70.71%);
   background-size: 300% 100%;
   animation: featured-gradient 1.5s linear infinite;
   animation-direction: alternate;
+  -webkit-transition: box-shadow .5s;
+  -moz-transition: box-shadow .5s;
+  -o-transition: box-shadow .5s;
+  transition: box-shadow .5s;
 }
 
 .featured-child {
@@ -258,6 +430,8 @@ main {
   display: none;
   font-size: 24px;
   color: #f907fc !important;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
   font-weight: 600;
   text-align: center;
   padding: 100px 0 0 0;
@@ -315,7 +489,7 @@ main {
 
 #featured2 {
   float: left;
-  margin-left: 44px;
+  margin-left: 49px;
 }
 
 #featured3 {
@@ -325,7 +499,7 @@ main {
 
 #featured4 {
   float: right;
-  margin-right: 44px;
+  margin-right: 49px;
 }
 
 footer {
@@ -403,7 +577,7 @@ footer {
   color: #057c7f;
   position: absolute;
   bottom: 10px;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .game-preview-price {

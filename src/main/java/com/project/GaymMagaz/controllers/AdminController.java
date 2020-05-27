@@ -240,8 +240,12 @@ public class AdminController {
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
-            file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
-            imagePath = file.getOriginalFilename();
+            if (!file.getOriginalFilename().equals("")) {
+                file.transferTo(new File(uploadPath + "/" + file.getOriginalFilename()));
+                imagePath = file.getOriginalFilename();
+            } else {
+                imagePath = g.getImagePath();
+            }
         } else {
             imagePath = g.getImagePath();
         }

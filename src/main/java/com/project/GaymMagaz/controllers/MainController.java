@@ -52,6 +52,7 @@ public class MainController {
         Pageable pageable = PageRequest.of(page - 1, 7);
         List<Game> games = gameRepository.findAllByDeletedAtNullOrderByName(pageable);
         List<Game> featured = gameRepository.findAllByFeaturedEquals(true);
+        List<Game> slider_games = gameRepository.findTop4ByOrderByAddedDateDesc();
         if (featured.size() >= 4) {
             Game featured1 = featured.get(0);
             Game featured2 = featured.get(1);
@@ -63,6 +64,7 @@ public class MainController {
             model.addAttribute("featured4", featured4);
         }
 
+        model.addAttribute("slider_games", slider_games);
         model.addAttribute("games", games);
         model.addAttribute("tabSize", tabSize);
         return "index";

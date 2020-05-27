@@ -116,7 +116,7 @@ h4 {
 
 .game-admin-actions {
     width: 100%;
-    margin-top: 120px;
+    margin-top: 140px;
     height: 30px;
 }
 
@@ -231,6 +231,14 @@ h4 {
     min-height: 60px;
     max-height: 160px;
     background: #222;
+    transition: border 0.5s;
+    -moz-transition: border 0.5s;
+    -webkit-transition: border 0.5s;
+    -o-transition: border 0.5s;
+}
+
+.comment-textarea:focus {
+    border: 3px solid #05d6d9;
 }
 
 .comment-warning {

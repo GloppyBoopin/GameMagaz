@@ -16,4 +16,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findAllByFeaturedEquals(boolean featured);
     List<Game> findAllByDeletedAtNullAndCategoriesContaining(Category category);
     List<Game> findAllByDeletedAtNullAndNameContaining(String name);
+    List<Game> findTop4ByOrderByAddedDateDesc();
 }
