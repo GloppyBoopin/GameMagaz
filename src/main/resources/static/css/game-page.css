@@ -46,7 +46,7 @@ h4 {
 }
 
 .game-info {
-    width: 100%;
+    width: 1260px;
     padding: 20px;
     position: relative;
     margin-top: 40px;
@@ -151,6 +151,7 @@ h4 {
 .game-right {
     width: 700px;
     float: right;
+    padding-bottom: 30px;
 }
 
 .game-discount {
